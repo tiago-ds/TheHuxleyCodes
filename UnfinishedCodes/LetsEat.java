@@ -12,24 +12,27 @@ public class LetsEat {
 			nomesAmigos[x] = in.next();
 			quantidades[x] = in.nextInt();
 		}
-		System.out.println(servirPessoa(quantidades, nomesAmigos, quantidades[amigos - 1], amigos - 1));
+		System.out.println(servirPessoa(quantidades, nomesAmigos, amigos - 1, quantidades[amigos - 1]));
 	}
-	public static String servirPessoa(int[] qtd, String[] nomes, int quantidadeComida, int posicaoArray) {
-		//é a última pessoa é é - de 400
-		if(posicaoArray == 0 && qtd[posicaoArray] < 400) {
-			return (nomes[posicaoArray] + " foi servido(a).\n");
+	public static String servirPessoa(int[] quantidades, String[] nomes, int posicaoArray, int quantidadeNecessaria) {
+		//última pessoa, e vai na fila só uma vez;
+		if(posicaoArray == 0 && quantidades[0] <= 400) {
+			return nomes[0] + " foi servido(a).\n";
 		}
-		//é a ultima pessoa e é + de 400
-		else if(posicaoArray == 0 && qtd[posicaoArray] > 400) {
-			return (nomes[posicaoArray] + " foi servido(a).\n" + "Fica tranquilo(a) " + nomes[posicaoArray - 1] + ", pode se servir novamente!" + servirPessoa(qtd, nomes, qtd[posicaoArray - 400], posicaoArray));
+		//última pessoa, mas vai na fila mais de uma vez
+		else if(posicaoArray == 0 && quantidades[0] > 400) {
+			return nomes[0] + " foi servido(a).\n" + "Fica tranquilo(a), " + nomes[0] + " pode se servir novamente!" + servirPessoa(quantidades, nomes, posicaoArray, quantidades[posicaoArray] - 400);
 		}
-		//não é a ultima pessoa e é - de 400
-		else if(posicaoArray != 0 && qtd[posicaoArray] < 400) {
-			return (nomes[posicaoArray] + " foi servido(a).\n" + servirPessoa(qtd, nomes, qtd[posicaoArray - 1], posicaoArray - 1));
+		//não é a última pessoa, e vai na fila só uma vez;
+		else if(posicaoArray != 0 && quantidades[posicaoArray] <= 400) {
+			return nomes[posicaoArray] + " foi servido(a).\n" + servirPessoa(quantidades, nomes, posicaoArray - 1, quantidades[posicaoArray - 1]);
 		}
-		//não é a ultima pessoa e é + de 400
+		//não é a última pessoa, mas vai na fila mais de uma vez
+		else if(posicaoArray != 0 && quantidades[posicaoArray] > 400) {
+			return nomes[posicaoArray] + " foi servido(a).\n" + "Fica tranquilo(a), " + nomes[posicaoArray] + " pode se servir novamente!\n" + servirPessoa(quantidades, nomes, posicaoArray - 1, quantidades[posicaoArray] - 400);
+		}
 		else {
-			return (nomes[posicaoArray] + " foi servido(a).\n") +  "Fica tranquilo(a) " + nomes[posicaoArray - 1] + ", pode se servir novamente!" + servirPessoa(qtd, nomes, (qtd[posicaoArray - 1] - 400), posicaoArray - 1);
+			return "";
 		}
 	}
 }
