@@ -1,4 +1,4 @@
-package nivel4;
+package lista05;
 
 import java.util.Scanner;
 
@@ -21,7 +21,8 @@ public class LetsEat {
 		}
 		//última pessoa, mas vai na fila mais de uma vez
 		else if(posicaoArray == 0 && quantidades[0] > 400) {
-			return nomes[0] + " foi servido(a).\n" + "Fica tranquilo(a), " + nomes[0] + " pode se servir novamente!" + servirPessoa(quantidades, nomes, posicaoArray, quantidades[posicaoArray] - 400);
+			quantidades[posicaoArray] -= 400;
+			return nomes[0] + " foi servido(a).\n" + "Fica tranquilo(a), " + nomes[0] + " pode se servir novamente!\n" + servirPessoa(quantidades, nomes, posicaoArray, quantidades[posicaoArray]);
 		}
 		//não é a última pessoa, e vai na fila só uma vez;
 		else if(posicaoArray != 0 && quantidades[posicaoArray] <= 400) {
@@ -29,7 +30,8 @@ public class LetsEat {
 		}
 		//não é a última pessoa, mas vai na fila mais de uma vez
 		else if(posicaoArray != 0 && quantidades[posicaoArray] > 400) {
-			return nomes[posicaoArray] + " foi servido(a).\n" + "Fica tranquilo(a), " + nomes[posicaoArray] + " pode se servir novamente!\n" + servirPessoa(quantidades, nomes, posicaoArray - 1, quantidades[posicaoArray] - 400);
+			quantidades[posicaoArray] -= 400;
+			return nomes[posicaoArray] + " foi servido(a).\n" + "Fica tranquilo(a), " + nomes[posicaoArray] + " pode se servir novamente!\n" + servirPessoa(quantidades, nomes, posicaoArray, quantidades[posicaoArray]);
 		}
 		else {
 			return "";
